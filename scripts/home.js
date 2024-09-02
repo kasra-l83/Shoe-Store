@@ -59,10 +59,12 @@ function renderList(pages){
 }
 renderList(1);
 function brands(pages, brand){
+  sneakerDataContainer.innerHTML= "";
   xhttp.onreadystatechange= function(){
     if(this.readyState=== 4){
       if(this.status=== 200){
         const sneakerData= JSON.parse(this.responseText);
+        console.log(sneakerData);
         for(const sneaker of sneakerData.data){
           const div= document.createElement("div");
           div.classList.add("card");
@@ -88,30 +90,23 @@ document.getElementById("all").addEventListener("click", () =>{
 })
 const Nike= document.getElementById("nike")
 Nike.addEventListener("click", () =>{
-  sneakerDataContainer.innerHTML= "";
   brands(1, "NIKE");
 })
 document.getElementById("addidas").addEventListener("click", () =>{
-  sneakerDataContainer.innerHTML= "";
   brands(1, "ADDIDAS");
 })
 document.getElementById("puma").addEventListener("click", () =>{
-  sneakerDataContainer.innerHTML= "";
   brands(1, "PUMA");
 })
 document.getElementById("asics").addEventListener("click", () =>{
-  sneakerDataContainer.innerHTML= "";
   brands(1, "ASICS");
 })
 document.getElementById("reebok").addEventListener("click", () =>{
-  sneakerDataContainer.innerHTML= "";
   brands(1, "REEBOK");
 })
 document.getElementById("new-balance").addEventListener("click", () =>{
-  sneakerDataContainer.innerHTML= "";
   brands(1, "NEW BALANCE");
 })
 document.getElementById("converse").addEventListener("click", () =>{
-  sneakerDataContainer.innerHTML= "";
   brands(1, "CONVERSE");
 })
