@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+.card{
+    width: 182px;
+    height: 244px;
+}
+#submit{
+    cursor: not-allowed;
+    background-color: gray;
+}
+#submit:enabled{
+    cursor: pointer;
+    background-color: black;
+}
