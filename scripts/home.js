@@ -29,6 +29,11 @@ function getGreetingMessage(){
   return message;
 }
 document.getElementById("greeting").textContent= getGreetingMessage() + " 👋";
+const Logout= document.getElementById("logout");
+Logout.addEventListener("click", () =>{
+  localStorage.removeItem(token);
+  window.location.href= "/login";
+})
 
 const token= getSessionToken();
 const xhttp= new XMLHttpRequest();
@@ -67,7 +72,6 @@ function brands(pages, brand){
         console.log(sneakerData);
         for(const sneaker of sneakerData.data){
           const div= document.createElement("div");
-          div.classList.add("card");
           div.innerHTML= `
           <img src= '${sneaker.imageURL}' class="rounded-3xl size-[182px]">
             <h2 class= "truncate" id= "title">${sneaker.name}</h2>
@@ -94,6 +98,14 @@ Nike.addEventListener("click", () =>{
 })
 document.getElementById("addidas").addEventListener("click", () =>{
   brands(1, "ADDIDAS");
+  const dev= document.createElement("div");
+  dev.classList.add("empty");
+  dev.innerHTML= `
+    <img src= "img/empty.png" class= "mb-3">
+    <h2 class= "text-xl font-black mb-3">Not Found</h2>
+    <p class= " text-center">Sorry, the keyword you entered cannot be found, please check again or search with another keyword.</p>
+  `
+  sneakerDataContainer.appendChild(dev);
 })
 document.getElementById("puma").addEventListener("click", () =>{
   brands(1, "PUMA");
