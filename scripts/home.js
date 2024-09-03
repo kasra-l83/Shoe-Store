@@ -53,6 +53,11 @@ function renderList(pages){
           `
           sneakerDataContainer.appendChild(div);
         }
+        for(let i= 1; i<= sneakerData.totalPages; i++){
+          const button= document.createElement("button");
+          button.innerText= i;
+          paginationContainer.appendChild(button);
+        }
       }else{
         console.error("error", this.status, this.statusText);
       }
@@ -63,8 +68,24 @@ function renderList(pages){
   xhttp.send();
 }
 renderList(1);
+const paginationContainer= document.getElementById("pagination")
+const brandButtons= document.querySelectorAll(".brand-button");
+let selectedButton= brandButtons[0];
+selectedButton.classList.add("selected")
+document.querySelectorAll(".brand-button").forEach(button =>{
+  button.addEventListener("click", () =>{
+    if(selectedButton){
+      selectedButton.classList.remove("selected");
+    }
+    button.classList.add("selected");
+    selectedButton= button;
+    const brand= button.getAttribute("data-brand");
+    brands(1,brand);
+  })
+})
 function brands(pages, brand){
   sneakerDataContainer.innerHTML= "";
+  paginationContainer.innerHTML= "";
   xhttp.onreadystatechange= function(){
     if(this.readyState=== 4){
       if(this.status=== 200){
@@ -78,6 +99,11 @@ function brands(pages, brand){
             <h4>$ ${sneaker.price}.00</h4>
           `
           sneakerDataContainer.appendChild(div);
+        }
+        for(let i= 1; i<= sneakerData.totalPages; i++){
+          const button= document.createElement("button");
+          button.innerText= i;
+          paginationContainer.appendChild(button);
         }
       }else{
         console.error("error", this.status, this.statusText);
