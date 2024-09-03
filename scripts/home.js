@@ -39,6 +39,7 @@ const token= getSessionToken();
 const xhttp= new XMLHttpRequest();
 const sneakerDataContainer= document.getElementById("sneaker-data");
 function renderList(pages){
+  sneakerDataContainer.innerHTML= "";
   xhttp.onreadystatechange= function(){
     if(this.readyState=== 4){
       if(this.status=== 200){
@@ -55,8 +56,12 @@ function renderList(pages){
         }
         for(let i= 1; i<= sneakerData.totalPages; i++){
           const button= document.createElement("button");
+          button.classList.add("button");
           button.innerText= i;
           paginationContainer.appendChild(button);
+          button.addEventListener("click", () =>{
+            renderList(i);
+          })
         }
       }else{
         console.error("error", this.status, this.statusText);
@@ -102,8 +107,12 @@ function brands(pages, brand){
         }
         for(let i= 1; i<= sneakerData.totalPages; i++){
           const button= document.createElement("button");
+          button.classList.add("button");
           button.innerText= i;
           paginationContainer.appendChild(button);
+          button.addEventListener("click", () =>{
+            brands(i, brand);
+          })
         }
       }else{
         console.error("error", this.status, this.statusText);
