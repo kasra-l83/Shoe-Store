@@ -24,3 +24,16 @@ function changeSlide(index){
 function currentSlide(index){
   displaySlide(index);
 }
+const slideButtons= document.querySelectorAll(".slide-button");
+let selectedButton= slideButtons[0];
+selectedButton.classList.add("selected")
+document.querySelectorAll(".slide-button").forEach(button =>{
+  button.addEventListener("click", () =>{
+    if(selectedButton){
+      selectedButton.classList.remove("selected");
+    }
+    button.classList.add("selected");
+    selectedButton= button;
+    const slide= button.getAttribute("data-brand");
+  })
+})
