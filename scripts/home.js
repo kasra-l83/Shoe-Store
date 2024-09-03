@@ -13,6 +13,7 @@ async function main(){
   }
 }
 main();
+
 function getGreetingMessage(){
   const now= new Date();
   const hours= now.getHours();
@@ -29,6 +30,7 @@ function getGreetingMessage(){
   return message;
 }
 document.getElementById("greeting").textContent= getGreetingMessage() + " 👋";
+
 const Logout= document.getElementById("logout");
 Logout.addEventListener("click", () =>{
   localStorage.removeItem(token);
@@ -38,8 +40,10 @@ Logout.addEventListener("click", () =>{
 const token= getSessionToken();
 const xhttp= new XMLHttpRequest();
 const sneakerDataContainer= document.getElementById("sneaker-data");
+const paginationContainer= document.getElementById("pagination")
 function renderList(pages){
   sneakerDataContainer.innerHTML= "";
+  paginationContainer.innerHTML= "";
   xhttp.onreadystatechange= function(){
     if(this.readyState=== 4){
       if(this.status=== 200){
@@ -47,12 +51,17 @@ function renderList(pages){
         for(const sneaker of sneakerData.data){
           const div= document.createElement("div");
           div.classList.add("card");
+          div.id= `${sneaker.id}`;
           div.innerHTML= `
           <img src= '${sneaker.imageURL}' class="rounded-3xl size-[182px]">
             <h2 class= "truncate" id= "title">${sneaker.name}</h2>
             <h4>$ ${sneaker.price}.00</h4>
           `
           sneakerDataContainer.appendChild(div);
+          div.addEventListener("click", () =>{
+            console.log(div.id);
+            window.location.href= `/item`
+          })
         }
         for(let i= 1; i<= sneakerData.totalPages; i++){
           const button= document.createElement("button");
@@ -73,7 +82,7 @@ function renderList(pages){
   xhttp.send();
 }
 renderList(1);
-const paginationContainer= document.getElementById("pagination")
+
 const brandButtons= document.querySelectorAll(".brand-button");
 let selectedButton= brandButtons[0];
 selectedButton.classList.add("selected")
@@ -88,6 +97,7 @@ document.querySelectorAll(".brand-button").forEach(button =>{
     brands(1,brand);
   })
 })
+
 function brands(pages, brand){
   sneakerDataContainer.innerHTML= "";
   paginationContainer.innerHTML= "";
@@ -95,15 +105,21 @@ function brands(pages, brand){
     if(this.readyState=== 4){
       if(this.status=== 200){
         const sneakerData= JSON.parse(this.responseText);
-        console.log(sneakerData);
         for(const sneaker of sneakerData.data){
           const div= document.createElement("div");
+          div.id= `${sneaker.id}`;
           div.innerHTML= `
           <img src= '${sneaker.imageURL}' class="rounded-3xl size-[182px]">
             <h2 class= "truncate" id= "title">${sneaker.name}</h2>
             <h4>$ ${sneaker.price}.00</h4>
           `
           sneakerDataContainer.appendChild(div);
+          div.addEventListener("click", () =>{
+            console.log(div.id);
+            setTimeout(() =>{
+              window.location.href= `/item`
+          }, 2000)
+          })
         }
         for(let i= 1; i<= sneakerData.totalPages; i++){
           const button= document.createElement("button");
