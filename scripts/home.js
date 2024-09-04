@@ -1,4 +1,3 @@
-import { data } from "autoprefixer";
 import { getUserInfo } from "../apis/services/user.service";
 import { errorHandler } from "../libs/error-handler";
 import { getSneakers } from "../apis/services/sneaker.service";
@@ -14,7 +13,7 @@ async function main(){
 }
 main();
 
-function getGreetingMessage(){
+function Greeting(){
   const now= new Date();
   const hours= now.getHours();
   let message;
@@ -29,7 +28,7 @@ function getGreetingMessage(){
   }
   return message;
 }
-document.getElementById("greeting").textContent= getGreetingMessage() + " 👋";
+document.getElementById("greeting").textContent= Greeting() + " 👋";
 
 const Logout= document.getElementById("logout");
 Logout.addEventListener("click", () =>{
@@ -40,7 +39,8 @@ Logout.addEventListener("click", () =>{
 const token= getSessionToken();
 const xhttp= new XMLHttpRequest();
 const sneakerDataContainer= document.getElementById("sneaker-data");
-const paginationContainer= document.getElementById("pagination")
+const paginationContainer= document.getElementById("pagination");
+const productContainer= document.getElementById("product")
 function renderList(pages){
   sneakerDataContainer.innerHTML= "";
   paginationContainer.innerHTML= "";
@@ -51,7 +51,6 @@ function renderList(pages){
         for(const sneaker of sneakerData.data){
           const div= document.createElement("div");
           div.classList.add("card");
-          div.id= `${sneaker.id}`;
           div.innerHTML= `
           <img src= '${sneaker.imageURL}' class="rounded-3xl size-[182px]">
             <h2 class= "truncate" id= "title">${sneaker.name}</h2>
@@ -59,8 +58,8 @@ function renderList(pages){
           `
           sneakerDataContainer.appendChild(div);
           div.addEventListener("click", () =>{
-            console.log(div.id);
-            window.location.href= `/item`
+            localStorage.setItem("product-id", sneaker.id);
+            window.location.href= "/product";
           })
         }
         for(let i= 1; i<= sneakerData.totalPages; i++){
@@ -107,6 +106,7 @@ function brands(pages, brand){
         const sneakerData= JSON.parse(this.responseText);
         for(const sneaker of sneakerData.data){
           const div= document.createElement("div");
+          div.classList.add("card");
           div.id= `${sneaker.id}`;
           div.innerHTML= `
           <img src= '${sneaker.imageURL}' class="rounded-3xl size-[182px]">
@@ -115,10 +115,9 @@ function brands(pages, brand){
           `
           sneakerDataContainer.appendChild(div);
           div.addEventListener("click", () =>{
-            console.log(div.id);
-            setTimeout(() =>{
-              window.location.href= `/item`
-          }, 2000)
+            localStorage.setItem("product-id", sneaker.id);
+            console.log(sneaker.id);
+            window.location.href= "/product";
           })
         }
         for(let i= 1; i<= sneakerData.totalPages; i++){
@@ -143,8 +142,7 @@ document.getElementById("all").addEventListener("click", () =>{
   sneakerDataContainer.innerHTML= "";
   renderList(1);
 })
-const Nike= document.getElementById("nike")
-Nike.addEventListener("click", () =>{
+document.getElementById("nike").addEventListener("click", () =>{
   brands(1, "NIKE");
 })
 document.getElementById("addidas").addEventListener("click", () =>{
