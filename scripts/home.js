@@ -29,9 +29,7 @@ function Greeting(){
   return message;
 }
 document.getElementById("greeting").textContent= Greeting() + " 👋";
-
-const Logout= document.getElementById("logout");
-Logout.addEventListener("click", () =>{
+document.getElementById("logout").addEventListener("click", () =>{
   localStorage.removeItem(token);
   window.location.href= "/login";
 })
@@ -68,7 +66,7 @@ function renderList(pages){
           button.innerText= i;
           paginationContainer.appendChild(button);
           button.addEventListener("click", () =>{
-            renderList(i);
+          renderList(i);
           })
         }
       }else{
@@ -82,18 +80,16 @@ function renderList(pages){
 }
 renderList(1);
 
-const brandButtons= document.querySelectorAll(".brand-button");
-let selectedButton= brandButtons[0];
+const brandButton= document.querySelectorAll(".brand-button");
+let selectedButton= brandButton[0];
 selectedButton.classList.add("selected")
-document.querySelectorAll(".brand-button").forEach(button =>{
+brandButton.forEach(button =>{
   button.addEventListener("click", () =>{
     if(selectedButton){
       selectedButton.classList.remove("selected");
     }
     button.classList.add("selected");
     selectedButton= button;
-    const brand= button.getAttribute("data-brand");
-    brands(1,brand);
   })
 })
 
