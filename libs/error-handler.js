@@ -14,7 +14,7 @@ export const errorHandler= (error) =>{
         toast("Please login again");
         removeSessionToken();
         setTimeout(() =>{
-            window.location.href= "/"
-        }, 3000);
+            window.location.href= "/login"
+        }, 2000);
     }
 }

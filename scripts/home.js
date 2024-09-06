@@ -1,6 +1,5 @@
 import { getUserInfo } from "../apis/services/user.service";
 import { errorHandler } from "../libs/error-handler";
-import { getSneakers } from "../apis/services/sneaker.service";
 import { getSessionToken } from "../libs/session-manager";
 const userName= document.getElementById("username");
 async function main(){
@@ -13,7 +12,7 @@ async function main(){
 }
 main();
 
-function Greeting(){
+function greeting(){
   const now= new Date();
   const hours= now.getHours();
   let message;
@@ -28,7 +27,7 @@ function Greeting(){
   }
   return message;
 }
-document.getElementById("greeting").textContent= Greeting() + " 👋";
+document.getElementById("greeting").textContent= greeting()+ " 👋";
 document.getElementById("logout").addEventListener("click", () =>{
   localStorage.removeItem(token);
   window.location.href= "/login";
@@ -48,7 +47,7 @@ function renderList(pages){
         const sneakerData= JSON.parse(this.responseText);
         for(const sneaker of sneakerData.data){
           const div= document.createElement("div");
-          div.classList.add("card");
+          div.style.width= "90%"
           div.innerHTML= `
           <img src= '${sneaker.imageURL}' class="rounded-3xl size-[182px]">
             <h2 class= "truncate" id= "title">${sneaker.name}</h2>
@@ -62,7 +61,11 @@ function renderList(pages){
         }
         for(let i= 1; i<= sneakerData.totalPages; i++){
           const button= document.createElement("button");
-          button.classList.add("button");
+          button.style.border= "solid 1px black";
+          button.style.width= "40px";
+          button.style.height= "40px";
+          button.style.borderRadius= "50%";
+          button.style.marginRight= "10px"
           button.innerText= i;
           paginationContainer.appendChild(button);
           button.addEventListener("click", () =>{
@@ -70,7 +73,7 @@ function renderList(pages){
           })
         }
       }else{
-        console.error("error", this.status, this.statusText);
+        errorHandler(error);
       }
     }
   }
@@ -102,7 +105,7 @@ function brands(pages, brand){
         const sneakerData= JSON.parse(this.responseText);
         for(const sneaker of sneakerData.data){
           const div= document.createElement("div");
-          div.classList.add("card");
+          div.style.width= "90%"
           div.id= `${sneaker.id}`;
           div.innerHTML= `
           <img src= '${sneaker.imageURL}' class="rounded-3xl size-[182px]">
@@ -118,7 +121,11 @@ function brands(pages, brand){
         }
         for(let i= 1; i<= sneakerData.totalPages; i++){
           const button= document.createElement("button");
-          button.classList.add("button");
+          button.style.border= "solid 1px black";
+          button.style.width= "40px";
+          button.style.height= "40px";
+          button.style.borderRadius= "50%";
+          button.style.marginRight= "10px"
           button.innerText= i;
           paginationContainer.appendChild(button);
           button.addEventListener("click", () =>{
@@ -126,7 +133,7 @@ function brands(pages, brand){
           })
         }
       }else{
-        console.error("error", this.status, this.statusText);
+        errorHandler(error);
       }
     }
   }
@@ -143,14 +150,20 @@ document.getElementById("nike").addEventListener("click", () =>{
 })
 document.getElementById("addidas").addEventListener("click", () =>{
   brands(1, "ADDIDAS");
-  const dev= document.createElement("div");
-  dev.classList.add("empty");
-  dev.innerHTML= `
+  const div= document.createElement("div");
+  div.style.display= "flex";
+  div.style.flexDirection= "column";
+  div.style.justifyContent= "center";
+  div.style.alignItems= "center";
+  div.style.width= "100%"
+  div.style.marginLeft= "40%";
+  div.style.paddingTop= "100px";
+  div.innerHTML= `
     <img src= "img/empty.png" class= "mb-3">
     <h2 class= "text-xl font-black mb-3">Not Found</h2>
     <p class= " text-center">Sorry, the keyword you entered cannot be found, please check again or search with another keyword.</p>
   `
-  sneakerDataContainer.appendChild(dev);
+  sneakerDataContainer.appendChild(div);
 })
 document.getElementById("puma").addEventListener("click", () =>{
   brands(1, "PUMA");

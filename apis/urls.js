@@ -3,8 +3,5 @@ export const urls= {
         login: "/auth/login",
         signup: "/auth/signup",
     },
-    user: "/user",
-    sneaker: {
-        list: "/sneaker"
-    }
+    user: "/user"
 }

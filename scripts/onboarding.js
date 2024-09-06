@@ -11,7 +11,7 @@ function displaySlide(index){
   for(let i= 0; i< slides.length; i++){
     slides[i].style.display= "none";
   }
-  slides[currentIndex - 1].style.display= "block";
+  slides[currentIndex- 1].style.display= "block";
 }
 displaySlide(currentIndex);
 function changeSlide(index){
@@ -24,12 +24,38 @@ function currentSlide(index){
 const slideButtons= document.querySelectorAll(".slide-button");
 let selectedButton= slideButtons[0];
 selectedButton.classList.add("selected");
-document.querySelectorAll(".slide-button").forEach(button =>{
+slideButtons.forEach(button =>{
   button.addEventListener("click", () =>{
     if(selectedButton){
       selectedButton.classList.remove("selected");
     }
     button.classList.add("selected");
     selectedButton= button;
+  })
+})
+document.getElementById("next1").addEventListener("click", () =>{
+  let selectedButton= slideButtons[1];
+  selectedButton.classList.add("selected");
+  slideButtons.forEach(button =>{
+    button.addEventListener("click", () =>{
+      if(selectedButton){
+        selectedButton.classList.remove("selected");
+      }
+      button.classList.add("selected");
+      selectedButton= button;
+    })
+  })
+})
+document.getElementById("next2").addEventListener("click", () =>{
+  let selectedButton= slideButtons[2];
+  selectedButton.classList.add("selected");
+  slideButtons.forEach(button =>{
+    button.addEventListener("click", () =>{
+      if(selectedButton){
+        selectedButton.classList.remove("selected");
+      }
+      button.classList.add("selected");
+      selectedButton= button;
+    })
   })
 })
