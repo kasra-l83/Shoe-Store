@@ -28,7 +28,7 @@ function renderList(id){
                 <h3 class="font-semibold text-[25px]">Size</h3>
                 <h3 class="font-semibold text-[25px]">Color</h3>
               </div>
-                <div class= "flex w-full justify-between">
+                <div class= "flex justify-between">
                   <div id= "size-list" class= "flex"></div>
                   <div id= "color-list" class= "flex justify-between overflow-x-auto snap-x"></div>
                 </div>
@@ -57,6 +57,17 @@ function renderList(id){
             button.style.marginRight= "5px"
             sizeList.appendChild(button);
           })
+          const sizeButton= document.querySelectorAll(".size-button");
+          let selectedSizeButton= null;
+          sizeButton.forEach(button =>{
+            button.addEventListener("click", () =>{
+              if(selectedSizeButton){
+                selectedSizeButton.classList.remove("selected");
+              }
+              button.classList.add("selected");
+              selectedSizeButton= button;
+            })
+          })
           const colorList= document.getElementById("color-list");
           colors.forEach(color =>{
             const button= document.createElement("button");
@@ -69,17 +80,6 @@ function renderList(id){
             button.style.backgroundColor= color;
             button.style.marginRight= "5px"
             colorList.appendChild(button);
-          })
-          const sizeButton= document.querySelectorAll(".size-button");
-          let selectedSizeButton= null;
-          sizeButton.forEach(button =>{
-            button.addEventListener("click", () =>{
-              if(selectedSizeButton){
-                selectedSizeButton.classList.remove("selected");
-              }
-              button.classList.add("selected");
-              selectedSizeButton= button;
-            })
           })
           const colorButton= document.querySelectorAll(".color-button");
           let selectedColorButton= null;
